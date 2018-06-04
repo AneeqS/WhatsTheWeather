@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aneeqshah.whatstheweather.MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:paddingTop="50dp"
+        android:text="Enter City Name!!!"
+        android:textColor="@android:color/background_dark"
+        android:textSize="35sp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingTop="20dp"
+        android:textColor="@color/colorPrimary"
+        android:textColorLink="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:onClick="getData"
+        android:text="Whats The Weather?" />
+
+    <TextView
+        android:id="@+id/weatherDataText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button"
+        android:layout_centerInParent="true"
+        android:paddingTop="40dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp" />
+</RelativeLayout>
