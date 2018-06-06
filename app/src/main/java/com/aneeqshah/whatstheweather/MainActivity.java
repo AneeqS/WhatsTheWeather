@@ -23,11 +23,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText cityName;
     TextView weatherDataText;
+    Pattern p;
+    Matcher m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +103,39 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
 
                 String weatherInfo = jsonObject.getString("weather");
+                String degreesInfo = jsonObject.getString("main");
+                String humidity = "";
+                String visibility = jsonObject.getString("visibility");
 
+                float visib = Float.valueOf(visibility);
+                visib = (Math.round(visib * 0.00062137));
+
+                Log.i("degreesInfo",degreesInfo);
                 Log.i("Weather", weatherInfo);
+
+                p = Pattern.compile("temp\":(.*?),");
+                m = p.matcher(degreesInfo);
+
+                while (m.find()){
+                    Log.i("degrees ", m.group(1));
+                    float degrees = Float.valueOf(m.group(1));
+                    degrees = (float) (Math.round((degrees * (9.0/5.0)) - 459.67));
+                    Log.i("fahrenheit", String.valueOf(degrees));
+                    message += "Degrees: " + String.valueOf(degrees) + "°F" + "\r\n";
+                }
+
+                p = Pattern.compile("humidity\":(.*?),");
+                m = p.matcher(degreesInfo);
+
+                while (m.find()){
+                    Log.i("Humidity: ", m.group(1));
+                    humidity = m.group(1);
+                }
 
                 JSONArray jsonArray = new JSONArray(weatherInfo);
 
                 for(int i = 0; i<jsonArray.length(); i++) {
                     JSONObject jsonPart = jsonArray.optJSONObject(i);
-
 
                     String main = "";
                     String description = "";
@@ -114,8 +143,9 @@ public class MainActivity extends AppCompatActivity {
                     main = jsonPart.getString("main");
                     description = jsonPart.getString("description");
 
-                    if(main != "" && description != ""){
-                        message += main + ": " + description + "\r\n";
+                    if(main != "" && description != "" && humidity != "" && visibility != ""){
+                        message += "Main: " + main + "\r\n" + "Description: " + description + "\r\n"
+                                + "Humidity: " + humidity + "%\r\n" + "Visibility: " + String.valueOf(visib) + "mi";
                     }
                 }
 
@@ -141,9 +171,12 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("City Name", cityName.getText().toString());
 
-        //Hides the keyboard after user is done with input.
-        InputMethodManager methodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        methodManager.hideSoftInputFromInputMethod(cityName.getWindowToken(), 0);
+        //Closes the keyboard when the button is pressed
+        View view1 = this.getCurrentFocus();
+        if (view1 != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
         try {
 
@@ -153,8 +186,9 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
 
-            e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Could Not Find Weather", Toast.LENGTH_LONG);
+            e.printStackTrace();
+
         }
 
 

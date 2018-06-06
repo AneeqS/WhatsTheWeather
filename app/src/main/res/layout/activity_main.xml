@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.aneeqshah.whatstheweather.MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleY="10"
+        app:srcCompat="@drawable/one" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -14,7 +21,7 @@
         android:layout_centerInParent="true"
         android:paddingTop="50dp"
         android:text="Enter City Name!!!"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@android:color/background_light"
         android:textSize="35sp" />
 
     <EditText
@@ -26,16 +33,22 @@
         android:ems="10"
         android:inputType="text"
         android:paddingTop="20dp"
-        android:textColor="@color/colorPrimary"
-        android:textColorLink="@color/colorAccent" />
+        android:textColor="@android:color/background_light"
+        android:textColorHighlight="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
+        android:textColorLink="@color/colorPrimary" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editText"
         android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
         android:onClick="getData"
-        android:text="Whats The Weather?" />
+        android:text="Whats The Weather?"
+        android:textColor="@android:color/background_light" />
 
     <TextView
         android:id="@+id/weatherDataText"
@@ -44,6 +57,6 @@
         android:layout_below="@+id/button"
         android:layout_centerInParent="true"
         android:paddingTop="40dp"
-        android:textColor="@color/colorPrimary"
-        android:textSize="40sp" />
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp" />
 </RelativeLayout>
