@@ -10,7 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleY="10"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/one" />
 
     <TextView
@@ -50,13 +50,4 @@
         android:text="Whats The Weather?"
         android:textColor="@android:color/background_light" />
 
-    <TextView
-        android:id="@+id/weatherDataText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_centerInParent="true"
-        android:paddingTop="40dp"
-        android:textColor="@android:color/background_light"
-        android:textSize="25sp" />
 </RelativeLayout>

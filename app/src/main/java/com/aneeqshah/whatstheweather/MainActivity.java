@@ -2,6 +2,7 @@ package com.aneeqshah.whatstheweather;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,17 +30,15 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
 
     EditText cityName;
-    TextView weatherDataText;
     Pattern p;
     Matcher m;
+    String message = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cityName = findViewById(R.id.editText);
-        weatherDataText = findViewById(R.id.weatherDataText);
-
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -99,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
             try {
 
-                String message = "";
                 JSONObject jsonObject = new JSONObject(result);
 
                 String weatherInfo = jsonObject.getString("weather");
@@ -150,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(message != ""){
-                    weatherDataText.setText(message);
+                    Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+                    intent.putExtra("info", message);
+                    startActivity(intent);
 
                 }else{
 
@@ -191,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        Intent intent = new Intent(this, SecondActivity.class);
+        startActivity(intent);
 
     }
 }
